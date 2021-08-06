@@ -1,4 +1,4 @@
-#!/Users/modouniang/Desktop/RestMap/RestMap-Backend/env/bin/python3.9
+#!/Users/modouniang/Desktop/MunchMap/MunchMap-Backend/env/bin/python3.9
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

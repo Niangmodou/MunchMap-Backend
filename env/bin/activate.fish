@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/modouniang/Desktop/RestMap/RestMap-Backend/env"
+set -gx VIRTUAL_ENV "/Users/modouniang/Desktop/MunchMap/MunchMap-Backend/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
