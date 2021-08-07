@@ -53,6 +53,7 @@ class RestaurantAPITests(TestCase):
 
         self.assertEqual(len(response_data["data"]), 3)
 
+        # Assert names are equal
         self.assertEqual(
             response_data["data"]["restaurants"][0]["restaurant_name"], "Cafe"
         )
@@ -63,6 +64,7 @@ class RestaurantAPITests(TestCase):
             response_data["data"]["restaurants"][2]["restaurant_name"], "Burgers"
         )
 
+        # Assert categories are equal
         self.assertEqual(
             response_data["data"]["restaurants"][0]["category"][0]["category_name"],
             "French",
@@ -74,4 +76,12 @@ class RestaurantAPITests(TestCase):
         self.assertEqual(
             response_data["data"]["restaurants"][2]["category"][0]["category_name"],
             "American",
+        )
+
+        # Assert Lat and Lon are floats
+        self.assertEqual(
+            type(response_data["data"]["restaurants"][0]["latitude"]), float
+        )
+        self.assertEqual(
+            type(response_data["data"]["restaurants"][0]["longitude"]), float
         )

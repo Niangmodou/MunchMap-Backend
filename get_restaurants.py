@@ -78,7 +78,7 @@ def retrieve_restaurant_ids() -> list:
     """
     reads csv data and retrieve Manhattan restaurant ids
     """
-    data = pd.read_csv("test_data.csv")
+    data = pd.read_csv("manhattan_data.csv")
 
     manhattan_data = data[data["city"] == "New York"]
 
