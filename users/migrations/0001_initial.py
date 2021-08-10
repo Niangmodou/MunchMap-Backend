@@ -10,38 +10,72 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('restaurants', '0001_initial'),
+        ("restaurants", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AppUser',
+            name="AppUser",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('username', models.CharField(max_length=100)),
-                ('email', models.CharField(max_length=200)),
-                ('name', models.CharField(max_length=200)),
-                ('zipcode', models.IntegerField()),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                ("username", models.CharField(max_length=100)),
+                ("email", models.CharField(max_length=200)),
+                ("name", models.CharField(max_length=200)),
+                ("zipcode", models.IntegerField()),
+                (
+                    "date_joined",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Collection',
+            name="Collection",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('collection_name', models.CharField(max_length=100)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='collection', to='users.appuser')),
-                ('restaurants', models.ManyToManyField(blank=True, to='restaurants.Restaurant')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("collection_name", models.CharField(max_length=100)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="collection",
+                        to="users.appuser",
+                    ),
+                ),
+                (
+                    "restaurants",
+                    models.ManyToManyField(blank=True, to="restaurants.Restaurant"),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='appuser',
-            name='collections',
-            field=models.ManyToManyField(blank=True, to='users.Collection'),
+            model_name="appuser",
+            name="collections",
+            field=models.ManyToManyField(blank=True, to="users.Collection"),
         ),
     ]

@@ -7,13 +7,16 @@ from restaurants.models import Restaurant
 class Collection(models.Model):
     collection_name = models.CharField(max_length=100)
 
-    owner = models.ForeignKey("AppUser", on_delete=models.CASCADE, related_name="collection")
+    owner = models.ForeignKey(
+        "AppUser", on_delete=models.CASCADE, related_name="collection"
+    )
 
     restaurants = models.ManyToManyField(Restaurant, blank=True)
 
     def __str__(self):
         return "{}".format(collection_name)
-        
+
+
 class AppUser(AbstractBaseUser):
     # Username, first_name, last_name, password, email, date_joined are stored in the AbstractUser type
     username = models.CharField(max_length=100)
@@ -22,8 +25,7 @@ class AppUser(AbstractBaseUser):
     zipcode = models.IntegerField()
     date_joined = models.DateTimeField(default=timezone.now)
 
-    collections =  models.ManyToManyField(Collection, blank=True)
+    collections = models.ManyToManyField(Collection, blank=True)
 
     def __str__(self):
         return "{}".format(self.username)
-
