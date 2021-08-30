@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-u#+!#ffs_-79xz@^c#g@5sk@70r_%te7aps@-j1_tqcm!y3)ma
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.158"]
+ALLOWED_HOSTS = ["192.168.1.158", "127.0.0.1"]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",
     "rest_framework",
+    "corsheaders",
     "users",
     "restaurants",
 ]
@@ -56,13 +56,11 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
     ),
 }
 
@@ -140,3 +138,9 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.AppUser"
+
+JWT_AUTH = {"JWT_RESPONSE_PAYLOAD_HANDLER": "users.utils.custom_jwt_response_handler"}
+
+AUTHENTICATION_BACKENDS = (("django.contrib.auth.backends.ModelBackend"),)
