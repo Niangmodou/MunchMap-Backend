@@ -1,44 +1,56 @@
+<<<<<<< HEAD
 from rest_framework.serializers import ModelSerializer
 from rest_framework_jwt.settings import api_settings
 from .models import AppUser, Collection
 from rest_framework import serializers
+=======
+from rest_framework import serializers
+from rest_framework_jwt.settings import api_settings
+from .models import AppUser
 
+>>>>>>> workinglogin
 
-class CollectionSerializer(ModelSerializer):
-    class Meta:
-        model = Collection
-        fields = "__all__"
-
-
-class UserSerializer(ModelSerializer):
-    collections = CollectionSerializer(many=True, read_only=True)
-
+class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUser
-        fields = ("username", "name", "email", "zipcode", "collections")
+        fields = ("username", "email", "full_name", "zipcode", "collections")
 
 
-class UserSerializerWithToken(serializers.ModelSerializer):
-
+class AppUserRegistrationSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
-    def get_token(self, obj):
+    def get_token(self, object):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
-        payload = jwt_payload_handler(obj)
+        payload = jwt_payload_handler(object)
         token = jwt_encode_handler(payload)
+
         return token
 
     def create(self, validated_data):
-        password = validated_data.pop("password", None)
-        instance = self.Meta.model(**validated_data)
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+        user = AppUser.objects.create(
+            username=validated_data["username"],
+            full_name=validated_data["full_name"],
+            email=validated_data["email"],
+            zipcode=validated_data["zipcode"],
+        )
+        password = validated_data["password"]
+
+        user.set_password(password)
+        user.save()
+
+        return user
 
     class Meta:
         model = AppUser
-        fields = ("token", "username", "password", "name", "email", "zipcode")
+        fields = (
+            "token",
+            "username",
+            "email",
+            "password",
+            "full_name",
+            "zipcode",
+            "collections",
+        )
